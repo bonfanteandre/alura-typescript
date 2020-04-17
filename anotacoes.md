@@ -20,7 +20,8 @@ Criar o arquivo tsconfig.json com a configuração mínima para o compilador
         "target": "es6",
         "outDir": "app/js",
         "noEmitOnError": true,
-        "noImplicitAny": true
+        "noImplicitAny": true,
+        "removeComments": true
     },
     "include": [
         "app/ts/**/*"
