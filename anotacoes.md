@@ -21,7 +21,8 @@ Criar o arquivo tsconfig.json com a configuração mínima para o compilador
         "outDir": "app/js",
         "noEmitOnError": true,
         "noImplicitAny": true,
-        "removeComments": true
+        "removeComments": true,
+        "module": "system"
     },
     "include": [
         "app/ts/**/*"
@@ -38,5 +39,5 @@ Adicionar script para compilação no package.json
 É interessante adicionar um script (dentro do package.json) que ficará monitorando e compilando novas alterações nos arquivos
 
 ```
- "start": "tsc -w"
+ "watch": "tsc -w"
  ```
