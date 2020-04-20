@@ -1,7 +1,8 @@
 import { Negociacao, Negociacoes } from '../models/index';
 import { NegociacoesView, MensagemView } from '../views/index';
-import { medirTempoDeExecucao, domInject, throttle } from '../helpers/decorators/index';
+import { domInject, throttle } from '../helpers/decorators/index';
 import { NegociacaoService, HandlerFunction } from '../services/index';
+import { imprime } from '../helpers/index';
 
 let timer = 0;
 
@@ -27,7 +28,6 @@ export class NegociacaoController {
     }
 
     @throttle()
-    @medirTempoDeExecucao(true)
     adiciona() {
         
         let data = new Date(this._inputData.val().replace(/-/g, ','));
@@ -46,6 +46,8 @@ export class NegociacaoController {
         this._negociacoes.adiciona(negociacao);
         this._negociacoesView.update(this._negociacoes);
         this._mensagemView.update('Negociação adicionada com sucesso!');
+
+        imprime(negociacao, this._negociacoes);
     }
 
     private _ehDiaUtil(data: Date): boolean {
@@ -65,7 +67,7 @@ export class NegociacaoController {
         this._negociacaoService
             .obterNegociacoes(isOk)
             .then(negociacoes => {
-                negociacoes.forEach(negociacao => this._negociacoes.adiciona(negociacao);
+                negociacoes.forEach(negociacao => this._negociacoes.adiciona(negociacao));
                 this._negociacoesView.update(this._negociacoes);
             })
             .catch(err => {
