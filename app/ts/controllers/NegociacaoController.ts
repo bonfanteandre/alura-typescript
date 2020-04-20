@@ -1,7 +1,7 @@
-import { Negociacao, Negociacoes, NegociacaoParcial } from '../models/index';
+import { Negociacao, Negociacoes } from '../models/index';
 import { NegociacoesView, MensagemView } from '../views/index';
 import { medirTempoDeExecucao, domInject, throttle } from '../helpers/decorators/index';
-import { NegociacaoService } from '../services/index';
+import { NegociacaoService, HandlerFunction } from '../services/index';
 
 let timer = 0;
 
@@ -20,7 +20,7 @@ export class NegociacaoController {
     private _negociacoesView: NegociacoesView = new NegociacoesView('#negociacoesView');
     private _mensagemView: MensagemView = new MensagemView('#mensagemView');
 
-    private _negociacaoService = new NegociacaoService();.
+    private _negociacaoService = new NegociacaoService();
 
     constructor() {
         this._negociacoesView.update(this._negociacoes);
@@ -55,7 +55,7 @@ export class NegociacaoController {
     @throttle()
     importaDados() {
         
-        function isOk(res: Response) {
+        const isOk: HandlerFunction = (res: Response) => {
             if (!res.ok) {
                 throw new Error(res.statusText);
             }
