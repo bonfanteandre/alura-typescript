@@ -7,7 +7,7 @@ System.register(["../models/index", "../views/index", "../helpers/decorators/ind
         return c > 3 && r && Object.defineProperty(target, key, r), r;
     };
     var __moduleName = context_1 && context_1.id;
-    var index_1, index_2, index_3, NegociacaoController, DiaDaSemana;
+    var index_1, index_2, index_3, index_4, NegociacaoController, DiaDaSemana;
     return {
         setters: [
             function (index_1_1) {
@@ -18,6 +18,7 @@ System.register(["../models/index", "../views/index", "../helpers/decorators/ind
             },
             function (index_3_1) {
                 index_3 = index_3_1;
+                index_4 = index_3_1;
             }
         ],
         execute: function () {
@@ -26,9 +27,6 @@ System.register(["../models/index", "../views/index", "../helpers/decorators/ind
                     this._negociacoes = new index_1.Negociacoes();
                     this._negociacoesView = new index_2.NegociacoesView('#negociacoesView');
                     this._mensagemView = new index_2.MensagemView('#mensagemView');
-                    this._inputData = $('#data');
-                    this._inputQuantidade = $('#quantidade');
-                    this._inputValor = $('#valor');
                     this._negociacoesView.update(this._negociacoes);
                 }
                 adiciona(event) {
@@ -47,6 +45,15 @@ System.register(["../models/index", "../views/index", "../helpers/decorators/ind
                     return data.getDay() != DiaDaSemana.Domingo && data.getDay() != DiaDaSemana.Sabado;
                 }
             };
+            __decorate([
+                index_4.domInject('#data')
+            ], NegociacaoController.prototype, "_inputData", void 0);
+            __decorate([
+                index_4.domInject('#quantidade')
+            ], NegociacaoController.prototype, "_inputQuantidade", void 0);
+            __decorate([
+                index_4.domInject('#valor')
+            ], NegociacaoController.prototype, "_inputValor", void 0);
             __decorate([
                 index_3.medirTempoDeExecucao(true)
             ], NegociacaoController.prototype, "adiciona", null);
