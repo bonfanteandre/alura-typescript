@@ -1,9 +1,8 @@
 import { Negociacao } from './Negociacao';
-import { Imprimivel } from './Imprimivel';
-import { Comparavel } from './Comparavel'
+import { MeuObjeto } from './MeuObjeto';
 import { medirTempoDeExecucao } from '../helpers/decorators/index';
 
-export class Negociacoes implements Imprimivel, Comparavel<Negociacoes> {
+export class Negociacoes implements MeuObjeto<Negociacoes> {
 
     private _negociacoes: Negociacao[] = [];
 
