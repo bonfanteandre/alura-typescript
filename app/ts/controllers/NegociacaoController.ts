@@ -4,8 +4,6 @@ import { domInject, throttle } from '../helpers/decorators/index';
 import { NegociacaoService, HandlerFunction } from '../services/index';
 import { imprime } from '../helpers/index';
 
-let timer = 0;
-
 export class NegociacaoController {
 
     @domInject('#data')
@@ -66,8 +64,20 @@ export class NegociacaoController {
 
         this._negociacaoService
             .obterNegociacoes(isOk)
-            .then(negociacoes => {
-                negociacoes.forEach(negociacao => this._negociacoes.adiciona(negociacao));
+            .then(negociacoesParaImportar => {
+
+                const negociacoesJaImportadas = this._negociacoes.paraArray();
+
+                negociacoesParaImportar
+                    .filter(negociacao => 
+                        !negociacoesJaImportadas.some(jaImportada => 
+                            negociacao.ehIgual(jaImportada)
+                        )
+                    )
+                    .forEach(negociacao => 
+                        this._negociacoes.adiciona(negociacao)
+                    );
+
                 this._negociacoesView.update(this._negociacoes);
             })
             .catch(err => {

@@ -7,7 +7,7 @@ System.register(["../models/index", "../views/index", "../helpers/decorators/ind
         return c > 3 && r && Object.defineProperty(target, key, r), r;
     };
     var __moduleName = context_1 && context_1.id;
-    var index_1, index_2, index_3, index_4, index_5, timer, NegociacaoController, DiaDaSemana;
+    var index_1, index_2, index_3, index_4, index_5, NegociacaoController, DiaDaSemana;
     return {
         setters: [
             function (index_1_1) {
@@ -27,7 +27,6 @@ System.register(["../models/index", "../views/index", "../helpers/decorators/ind
             }
         ],
         execute: function () {
-            timer = 0;
             NegociacaoController = class NegociacaoController {
                 constructor() {
                     this._negociacoes = new index_1.Negociacoes();
@@ -60,8 +59,11 @@ System.register(["../models/index", "../views/index", "../helpers/decorators/ind
                     };
                     this._negociacaoService
                         .obterNegociacoes(isOk)
-                        .then(negociacoes => {
-                        negociacoes.forEach(negociacao => this._negociacoes.adiciona(negociacao));
+                        .then(negociacoesParaImportar => {
+                        const negociacoesJaImportadas = this._negociacoes.paraArray();
+                        negociacoesParaImportar
+                            .filter(negociacao => !negociacoesJaImportadas.some(jaImportada => negociacao.ehIgual(jaImportada)))
+                            .forEach(negociacao => this._negociacoes.adiciona(negociacao));
                         this._negociacoesView.update(this._negociacoes);
                     })
                         .catch(err => {
